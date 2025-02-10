@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: secure-service-sample
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: ${aws.cognito.client-id}
+            client-secret: ${aws.cognito.client-secret}
+            scope:
+              - email
+              - openid
+              - profile
+            # Spring Security by default uses a redirect-uri in the format: {baseUrl}/login/oauth2/code/{registrationId}
+            # For example: http://localhost:8080/login/oauth2/code/cognito
+            # See more: https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-redirect-uri
+            redirect-uri: http://localhost:8080
+        provider:
+          cognito:
+            issuer-uri: https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_9eSkJkdU8
+            user-name-attribute: username
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${aws.cognito.region}.amazonaws.com/${aws.cognito.user-pool-id}
+  datasource:
+    url: jdbc:postgresql://${postgres.host}:${postgres.port}/${postgres.db-name}
+    username: ${postgres.username}
+    password: ${postgres.password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 10
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+# Flyway Configuration
+flyway:
+  enabled: true
+  url: jdbc:postgresql://${postgres.host}:${postgres.port}/${postgres.db-name}
+  user: ${postgres.username}
+  password: ${postgres.password}
+  schemas: ${postgres.schema}
+  locations: classpath:db/migration
+aws:
+  cognito:
+    region: ${AWS_REGION:ap-southeast-1}
+    user-pool-id: ${COGNITO_USER_POOL_ID:ap-southeast-1_9eSkJkdU8}
+    client-id: ${COGNITO_CLIENT_ID:qgjkk5vvi92nsm82rtpeno2h4}
+    client-secret: ${COGNITO_CLIENT_SECRET:1vq1}
+postgres:
+  host: ${POSTGRES_HOST:localhost}
+  port: ${POSTGRES_PORT:5432}
+  db-name: ${DATABASE_NAME:secure_service_sample}
+  username: ${POSTGRES_USERNAME:secure_service_sample}
+  password: ${POSTGRES_PASSWORD:secure_service_sample}
+  schema: ${POSTGRES_SCHEMA:secure_service_sample}
