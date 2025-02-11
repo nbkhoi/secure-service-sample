@@ -8,7 +8,7 @@ PUBLIC_URL="$BASE_URL/public/hello"
 
 # User credentials
 USERNAME="khoinb@gotik.vn"
-PASSWORD="12345678x@X"
+PASSWORD="NewStrongPass@123"
 
 # Function to print headers
 print_header() {
