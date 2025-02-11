@@ -1,50 +1,35 @@
 package vn.gotik.sample.service.secure.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "user_profiles")
+@Table(name = "user_profile")
 public class UserProfile {
 
     @Id
-    @Column(nullable = false, unique = true)
-    private UUID username;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false, unique = true)
-    private String phoneNumber;
-
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
+    private UUID id;
+    @OneToOne
+    @MapsId
+    private User user;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-
-    @Column
+    @Column(name = "middle_name")
     private String middleName;
-
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    @Column(nullable = false, unique = true)
-    private String citizenId;
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    @Column(name = "date_of_birth", nullable = false)
+    private Date dateOfBirth;
+    @Column(name = "id_number", nullable = false, unique = true)
+    private String idNumber;
 }

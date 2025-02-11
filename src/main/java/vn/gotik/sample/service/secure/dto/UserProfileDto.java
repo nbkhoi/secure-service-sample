@@ -1,7 +1,6 @@
 package vn.gotik.sample.service.secure.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,25 +12,22 @@ import vn.gotik.sample.service.secure.entities.UserProfile;
 @AllArgsConstructor
 public class UserProfileDto {
 
-    private String username;
-    private String email;
-    private String phoneNumber;
+    private UUID id;
     private String firstName;
     private String middleName;
     private String lastName;
-    private String citizenId;
-    private Set<RoleDto> roles = new HashSet<>();
+    private String dateOfBirth;
+    private String idNumber;
 
     public static UserProfileDto from(UserProfile entity) {
         UserProfileDto dto = new UserProfileDto();
-        dto.setUsername(entity.getUsername().toString());
-        dto.setEmail(entity.getEmail());
-        dto.setPhoneNumber(entity.getPhoneNumber());
+        dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstName());
         dto.setMiddleName(entity.getMiddleName());
         dto.setLastName(entity.getLastName());
-        dto.setCitizenId(entity.getCitizenId());
-        entity.getRoles().stream().map(RoleDto::from).forEach(dto.getRoles()::add);
+        dto.setDateOfBirth(entity.getDateOfBirth().toString());
+        dto.setIdNumber(entity.getIdNumber());
         return dto;
     }
+
 }

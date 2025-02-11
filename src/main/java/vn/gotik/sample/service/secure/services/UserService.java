@@ -1,14 +1,19 @@
 package vn.gotik.sample.service.secure.services;
 
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+
+import vn.gotik.sample.service.secure.entities.Permission;
+import vn.gotik.sample.service.secure.entities.User;
+
 public interface UserService {
 
-    void createUser(String username, String password);
+    public Optional<User> findById(UUID id);
 
-    void deleteUser(String username);
+    public Optional<User> findByEmail(String email);
 
-    void updateUser(String username, String password);
+    public User save(User user);
 
-    void getUser(String username);
-
-    void getUsers();
+    public Set<Permission> getPermissions(UUID userId);
 }

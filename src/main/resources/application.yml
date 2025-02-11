@@ -34,7 +34,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
 # Flyway Configuration
 flyway:
@@ -57,3 +57,11 @@ postgres:
   username: ${POSTGRES_USERNAME:secure_service_sample}
   password: ${POSTGRES_PASSWORD:secure_service_sample}
   schema: ${POSTGRES_SCHEMA:secure_service_sample}
+logging:
+  level:
+    org:
+      springframework: INFO
+      hibernate: INFO
+      flywaydb: INFO
+    vn:
+      gotik: DEBUG
